@@ -41,9 +41,6 @@ const Keypad = () => {
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.lineButton}>
-          <Switch />
-        </View>
         <View style={styles.line}>
           <View style={styles.lineAmount}>
             <View style={styles.firstItem} />
@@ -97,14 +94,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  number: {},
   line: {
     flexDirection: "row",
-    marginBottom: 10,
+    marginBottom: 5,
   },
   lineButton: {
     flexDirection: "row",
-    margin: 10,
+    margin: 5,
   },
   lineAmount: {
     flexDirection: "row",

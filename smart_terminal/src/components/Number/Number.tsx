@@ -17,6 +17,6 @@ const Number: React.FC<NumberProps> = ({ number, onPress, variant = false, ...re
 export default Number;
 
 const styles = StyleSheet.create({
-  button: { width: Dimensions.get("window").width / 3.5, height: Dimensions.get("window").width / 3.7, justifyContent: "center", alignItems: "center", marginHorizontal: 5 },
+  button: { width: Dimensions.get("window").width / 3.5, height: Dimensions.get("window").width / 3.8, justifyContent: "center", alignItems: "center", marginHorizontal: 5 },
   buttonText: { fontFamily: "Helvetica_Neue_Condensed_Bold", fontSize: 30 },
 });
