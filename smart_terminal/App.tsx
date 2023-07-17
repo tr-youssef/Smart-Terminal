@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { useFonts, RedHatText_500Medium, RedHatText_500Medium_Italic } from "@expo-google-fonts/red-hat-text";
 import { useFonts as useAssetsFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
-import TabNavigator from "./src/navigators/TabNavigator";
+import StackNavigator from "./src/navigators/StackNavigator";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -22,7 +23,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <TabNavigator />
+      <StackNavigator />
     </NavigationContainer>
   );
 }

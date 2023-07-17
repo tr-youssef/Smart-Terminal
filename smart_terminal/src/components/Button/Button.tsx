@@ -28,7 +28,7 @@ const Button: React.FC<ButtonProps> = ({ title, color, onPress, notification, ..
         <FontAwesome5 name="tags" color="#ffffff" size={20} onPress={() => console.log("tags")} />
         <View>
           <FontAwesome5 name="shopping-bag" color="#ffffff" size={20} onPress={() => console.log("shopping-bag")} />
-          {notification > 0 && <NotificationBadge count={notification} />}
+          {notification !== undefined && notification > 0 && <NotificationBadge count={notification} />}
         </View>
         <Icon name="dots-three-vertical" type="entypo" color="#ffffff" onPress={() => console.log("dots-three-vertical")} />
       </View>

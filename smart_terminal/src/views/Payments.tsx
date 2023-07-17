@@ -7,7 +7,7 @@ import Library from "./Library";
 
 type ScreenType = "keypad" | "library";
 
-const Payments = () => {
+const Payments = ({ navigation }) => {
   const [screen, setScreen] = useState<ScreenType>("keypad");
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
@@ -15,9 +15,8 @@ const Payments = () => {
         <View style={styles.lineButton}>
           <Switch screen={screen} setScreen={setScreen} />
         </View>
-        {screen === "keypad" ? <Keypad /> : <Library />}
+        {screen === "keypad" ? <Keypad navigation={navigation} /> : <Library navigation={navigation} />}
       </View>
-      {}
     </SafeAreaView>
   );
 };

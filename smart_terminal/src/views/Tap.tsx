@@ -1,18 +1,40 @@
-import { StyleSheet, Image, View, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from "expo-blur";
+import HalfCreditCardTop from "../components/HalfCreditCard/HalfCreditCardTop";
+import HalfCreditCardBottom from "../components/HalfCreditCard/HalfCreditCardBottom";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
-const Tap = () => {
+type RootStackParamList = {
+  Tap: { total: number };
+  Payments: {};
+};
+
+const Tap: React.FC = () => {
+  const route = useRoute<RouteProp<RootStackParamList, "Tap">>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Tap">>();
+
+  const { total } = route.params;
+  const handleCancel = () => {
+    navigation.navigate("Payments", {});
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.radialGradient1} />
-      <View style={styles.radialGradient2} />
-      <LinearGradient style={styles.linearGradient1} colors={["#FFBB94", "rgba(242, 118, 144, 0)"]} start={[0.3002, 0.9445]} end={[0.5002, 0.4431]} />
-      <LinearGradient style={styles.linearGradient2} colors={["#FF9365", "#FF9365", "#FD687A", "#FFD494"]} start={[0.5002, -0.2634]} end={[0.2058, 0.8767]} />
-      <Image style={styles.image} source={require("../../assets/contactless.png")} resizeMode="contain" />
-      <Text style={[styles.text, { fontSize: 35 }]}>$ 9.95</Text>
-      <Text style={[styles.text, { fontSize: 15 }]}>Purchase</Text>
-      <Text style={[styles.text, { fontSize: 20 }]}>Tap, Insert, or Swipe</Text>
+      <LinearGradient colors={["#FD687A", "#A16FF2", "#C06FF2"]} start={{ x: 0.0, y: 1.0 }} end={{ x: 0.0, y: 0.0 }} locations={[0.6051, 0.0198, 0.0198]} style={styles.gradient1} />
+      <LinearGradient colors={["#FFBB94", "rgba(242, 118, 144, 0)"]} start={{ x: 0.0, y: 0.0 }} end={{ x: 0.0, y: 1.0 }} locations={[0.0, 0.7242]} style={styles.gradient2} />
+      <HalfCreditCardTop />
+      <HalfCreditCardBottom />
+      <Text style={[styles.text1, { fontSize: 20 }]}>Purchase</Text>
+      <Text style={[styles.text2, { fontSize: 15 }]}>Amount</Text>
+      <Text style={[styles.text3, { fontSize: 45 }]}>$ {total.toFixed(2)}</Text>
+      <BlurView style={styles.blurContainer} tint="light" intensity={20}>
+        <TouchableOpacity style={styles.button} onPress={handleCancel}>
+          <Text style={styles.buttonText}>Cancel</Text>
+        </TouchableOpacity>
+      </BlurView>
     </View>
   );
 };
@@ -23,48 +45,42 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
-    width: 200, // Set the width of the image
-    height: 200, // Set the height of the image
-  },
-  text: {
+
+  text1: {
     color: "#ffffff",
+    marginBottom: 80,
+    fontFamily: "RedHatText_500Medium",
   },
-  radialGradient1: {
-    flex: 1,
-    backgroundColor: "#FFFACF",
-    position: "absolute",
-    top: -6.02,
-    left: -6.57,
-    right: 0,
-    bottom: 0,
-    borderRadius: 1000,
+  text2: {
+    color: "#ffffff",
+    fontFamily: "RedHatText_500Medium",
   },
-  radialGradient2: {
-    flex: 1,
-    backgroundColor: "#815AF0",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 154.31,
-    bottom: 129.92,
-    borderRadius: 1000,
+  text3: {
+    color: "#ffffff",
+    fontFamily: "Helvetica_Neue_Condensed_Bold",
   },
-  linearGradient1: {
-    flex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+
+  gradient1: {
+    ...StyleSheet.absoluteFillObject,
   },
-  linearGradient2: {
-    flex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  gradient2: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  blurContainer: {
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    backgroundColor: "transparent",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontFamily: "RedHatText_500Medium",
   },
 });
 

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator, BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Icon } from "@rneui/themed";
 import Keypad from "../views/Keypad";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import StackNavigator from "./StackNavigator";
 import Payments from "../views/Payments";
 
 type CustomTabOptions = { headerShown: boolean; tabBarLabel: string; iconName: string; iconType: string };
@@ -15,7 +16,7 @@ const TabBarComponent: React.FC<BottomTabBarProps> = ({ state, descriptors, navi
     <View style={styles.tabBar}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const { tabBarLabel, iconName, iconType } = options as CustomTabOptions;
+        const { iconName, iconType } = options as CustomTabOptions;
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -40,7 +41,7 @@ const TabBarComponent: React.FC<BottomTabBarProps> = ({ state, descriptors, navi
   );
 };
 
-const TabNavigator: React.FC = () => {
+const TabNavigator: React.FC = (props) => {
   return (
     <Tab.Navigator tabBar={(props) => <TabBarComponent {...props} />}>
       <Tab.Screen
@@ -54,14 +55,16 @@ const TabNavigator: React.FC = () => {
         })}
       />
       <Tab.Screen
-        name="Transactions"
-        component={Keypad}
-        options={getScreenOptions({
-          headerShown: false,
-          tabBarLabel: "My Transactions",
-          iconName: "receipt",
-          iconType: "FontAwesome5",
-        })}
+        name="Payments2"
+        component={Payments}
+        options={({ route }) =>
+          getScreenOptions({
+            headerShown: false,
+            tabBarLabel: "My Transactions",
+            iconName: "receipt",
+            iconType: "FontAwesome5",
+          })
+        }
       />
       <Tab.Screen
         name="Bluethoot"

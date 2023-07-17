@@ -3,12 +3,18 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Number from "../components/Number/Number";
 import Button from "../components/Button/Button";
-import Switch from "../components/Switch/Switch";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const Keypad = () => {
+type RootStackParamList = {
+  Keypad: undefined;
+  Tap: { total: number };
+};
+const Keypad: React.FC = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [operator, setOperator] = useState<string | null>(null);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Keypad">>();
 
   const handleDigitPress = (digit: number) => {
     if (operator === null) {
@@ -37,7 +43,10 @@ const Keypad = () => {
     }
     setPaymentAmount(newTotalAmount);
   };
-  const handlePayment = () => {};
+  const handlePayment = () => {
+    const total = totalAmount + paymentAmount;
+    navigation.navigate("Tap", { total });
+  };
   return (
     <SafeAreaView edges={["top"]} style={styles.safeArea}>
       <View style={styles.container}>
@@ -76,7 +85,7 @@ const Keypad = () => {
         </View>
       </View>
       <View style={styles.lineButton}>
-        <Button title={`Process $${totalAmount === 0 ? paymentAmount.toFixed(2) : totalAmount.toFixed(2)}`} color="#815af0" onPress={() => alert("Process")} />
+        <Button title={`Process $${totalAmount === 0 ? paymentAmount.toFixed(2) : totalAmount.toFixed(2)}`} color="#815af0" onPress={handlePayment} />
       </View>
     </SafeAreaView>
   );

@@ -5,13 +5,19 @@ import Button from "../components/Button/Button";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type Item = {
   name: string;
   price: number;
 };
+type RootStackParamList = {
+  Library: undefined;
+  Tap: { total: number };
+};
 
-const Library = () => {
+const Library: React.FC = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [card, setCard] = useState<Item[]>([]);
   const [items, setItems] = useState([
@@ -20,9 +26,14 @@ const Library = () => {
   ]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("coffee");
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, "Library">>();
 
   const addToCard = (item: Item) => {
     setCard((prevCard) => [...prevCard, item]);
+  };
+  const handlePayment = () => {
+    const total = totalAmount;
+    navigation.navigate("Tap", { total });
   };
   return (
     <View>
@@ -46,7 +57,7 @@ const Library = () => {
       <Items picture="flat" name="Flat White" price={4.0} totalAmount={totalAmount} setTotalAmount={setTotalAmount} addToCard={addToCard} />
       <Items picture="london" name="London Fog" price={3.2} totalAmount={totalAmount} setTotalAmount={setTotalAmount} addToCard={addToCard} />
       <View style={styles.lineButton}>
-        <Button title={`Process $${totalAmount.toFixed(2)}`} color="#815af0" onPress={() => alert("Process")} notification={card.length} />
+        <Button title={`Process $${totalAmount.toFixed(2)}`} color="#815af0" onPress={handlePayment} notification={card.length} />
       </View>
     </View>
   );
