@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import Tap from "../views/Tap";
+import Loading from "../views/Loading";
 import TabNavigator from "./TabNavigator";
 
 const StackNavigator = () => {
@@ -9,6 +10,7 @@ const StackNavigator = () => {
     <Stack.Navigator>
       <Stack.Screen name="TabNavigator" component={TabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Tap" component={Tap} options={{ headerShown: false }} />
+      <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };

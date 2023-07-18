@@ -4,6 +4,7 @@ import { useFonts, RedHatText_500Medium, RedHatText_500Medium_Italic } from "@ex
 import { useFonts as useAssetsFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigator from "./src/navigators/StackNavigator";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   let [fontsLoaded] = useFonts({

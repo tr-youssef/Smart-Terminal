@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 3,
   },
   button: {
     paddingVertical: 10,

@@ -1,9 +1,14 @@
-import { StyleSheet, View, Text, Animated } from "react-native";
+import { StyleSheet, View, Text, Animated, Pressable } from "react-native";
 import React, { useEffect } from "react";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
+type RootStackParamList = {
+  Loading: undefined; // Add more route names and their corresponding params if needed
+};
 const HalfCreditCardTop = () => {
   const translateYAnimation = new Animated.Value(-100);
   const opacityAnimation = new Animated.Value(0);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleTap = () => {
     Animated.sequence([
@@ -40,13 +45,19 @@ const HalfCreditCardTop = () => {
   useEffect(() => {
     handleTap();
   }, []);
+  const handlePress = () => {
+    navigation.navigate("Loading");
+  };
+
   return (
     <View style={styles.halfCreditCardContainer}>
-      <Animated.View style={[styles.halfCreditCard, { transform: [{ translateY: translateYAnimation }], opacity: opacityAnimation }]}>
-        <View style={styles.textContainer}>
-          <Text style={styles.bottomRightText}>Tap</Text>
-        </View>
-      </Animated.View>
+      <Pressable onPress={handlePress}>
+        <Animated.View style={[styles.halfCreditCard, { transform: [{ translateY: translateYAnimation }], opacity: opacityAnimation }]}>
+          <View style={styles.textContainer}>
+            <Text style={styles.bottomRightText}>Tap</Text>
+          </View>
+        </Animated.View>
+      </Pressable>
     </View>
   );
 };
@@ -58,6 +69,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: "center",
+    zIndex: 2,
   },
   halfCreditCard: {
     width: "80%",
